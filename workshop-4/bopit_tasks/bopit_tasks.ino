@@ -7,8 +7,7 @@ int red_led_pin = 9; // set the output signal pin for the red LED to 9
 int green_led_pin = 10; // set the output signal pin for the green LED to 10
 int blue_led_pin = 11; // set the output signal pin for the blue LED to 11
 // put the LED pins in an array so they can be iterated through for shorter/cleaner code
-int led_pins[num_tasks] = {red_led_pin, green_led_pin, blue_led_pin}; 
-int buzzer_pin = 3; // set the output signal pin for the buzzer to 3
+int led_pins[3] = {red_led_pin, green_led_pin, blue_led_pin}; 
 
 // game settings
 const int num_tasks = 3; // set the number of tasks to 3
@@ -45,7 +44,6 @@ void setup() {
   pinMode(red_led_pin, OUTPUT); // configure the red LED pin for output
   pinMode(green_led_pin, OUTPUT); // configure the green LED pin for output
   pinMode(blue_led_pin, OUTPUT); // configure the blue LED pin for output
-  pinMode(buzzer_pin, OUTPUT); // configure the buzzer pin for output
 
   randomSeed(analogRead(5)); // initialize the random number generator with arbitrary data noise from a digital pin
 
@@ -97,7 +95,6 @@ void set_new_task() {
   Serial.print("Selecting new task ");
   Serial.println(task);
 
-  noTone(buzzer_pin); // shut off the buzzer
   task_timer = millis(); // reset the game timer to now, so that any time measurement is in reference to the time a task was assigned
 
   // if the assigned task is to twist a potentiometer, measure the current value of the potentiometer so when the player twists it 
@@ -126,7 +123,6 @@ bool check_user_action() {
     if ((last_pot_value < 512 && pot_value > 700) ||
         (last_pot_value > 512 && pot_value < 300)) {
       game_score += 7; // add 7 points to the player's game score
-      tone(buzzer_pin, 494); // play a B4 note on the buzzer
       task_timer = millis() - task_time_limit + 1; // reset the task timer so that no more time is left for the task
     }
   } else if (task == JOYSTICK) {
@@ -136,7 +132,6 @@ bool check_user_action() {
     // if the joystick value has been pushed far enough, the task is done
     if (joystick_value > 900) {
       game_score += 10; // add 10 points to the player's game score
-      tone(buzzer_pin, 523); // play an C4 note on the buzzer
 
       task_timer = millis() - task_time_limit + 1; // reset the task timer so that no more time is left for the task
     }
