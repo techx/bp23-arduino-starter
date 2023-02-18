@@ -9,7 +9,7 @@ void setup() {
 }
 
 // TODO: EXPLAIN THIS LATER
-int led_brightness = 0
+int led_brightness = 0;
 
 void loop() {
   // put your main code here, to run repeatedly:  
