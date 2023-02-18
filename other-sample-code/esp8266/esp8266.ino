@@ -24,8 +24,8 @@ void loop()
      delay(1000);
  
      int connectionId = esp8266.read()-48;                                                
-     String webpage = "<h1>This is a header text!</h1>";
-//     webpage += "<p>This is normal test!<p>";
+     String webpage = "<h1>This is a header text!</h1>\r\n";
+     webpage += "<p>This is normal text!<p>";
      String cipSend = "AT+CIPSEND=";
      cipSend += connectionId;
      cipSend += ",";
